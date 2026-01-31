@@ -23,7 +23,7 @@ Tutorial dotyczący symulacji przegubów przy użyciu Extended Position-Based Dy
 
 Przeguby są fundamentalnymi komponentami w każdym systemie z ruchem mechanicznym: ludzie, roboty, pojazdy, maszyny i animowane postacie. Chociaż my, jako ludzie, również mamy przeguby, w tym tutorialu omówię najpopularniejsze przeguby mechaniczne, takie jak przeguby pryzmatyczne (prismatic joints), przeguby zawiasowe (hinge joints) i przeguby kulowe (ball joints). Symulacja zachowania tych przegubów jest bardzo przydatna na wiele sposobów. Na przykład, gdy wizualizujemy, jak zachowuje się zawieszenie samochodu przed zbudowaniem fizycznego prototypu, lub gdy budujemy gry z wiarygodnym zachowaniem mechanicznym.
 
-![robot arm](robotic-arm.png)
+![robot arm](blob/robotic-arm.png)
 *Będziemy symulować zachowanie pojedynczego przegubu (np. zawiasowego lub pryzmatycznego), a nie zintegrowany system pełnego ramienia robota. To wykracza poza zakres tego tutoriala.*
 
 ### Czego się nauczysz
@@ -147,7 +147,7 @@ Ograniczenie mierzy, jak daleko obecna sytuacja jest od tego, czego wymaga regu�
 
 **Przykład**: Wyobraź sobie ograniczenie odległości, które mówi "dwa punkty muszą być 1 metr od siebie": Jeśli są 1,2m od siebie → naruszenie = 0,2m (za daleko); jeśli 0,8m od siebie → naruszenie = -0,2m (za blisko); jeśli dokładnie 1,0m → naruszenie = 0 (spełnione).
 
-![distance constraint](distance-constraint.png)
+![distance constraint](blob/distance-constraint.png)
 
 **Krok 2: Zastosuj korektę**
 Jeśli naruszenie nie jest zerem, solver przesuwa ciała, aby to naprawić. Im większe naruszenie, tym większa potrzebna korekta.
@@ -174,7 +174,7 @@ W profesjonalnych silnikach fizycznych, przeguby to nie tylko "punkty", ale **ra
 
 Pojedynczy punkt daje nam tylko pozycję. Ramka współrzędnych (z pozycją + trzema prostopadłymi osiami) daje nam zarówno pozycję, jak i orientację, których potrzebujemy dla przegubów takich jak zawiasy (które mają określoną oś rotacji) lub przeguby pryzmatyczne (które mają określony kierunek przesuwania).
 
-![orientation constraint](orientation-constraint.png)
+![orientation constraint](blob/orientation-constraint.png)
 
 **Ramki przegubów (L₀ i L₁)**: Każdy przegub kojarzy lokalną pozycję z każdym z dwóch ciał sztywnych, które łączy (body₀ i body₁). Te lokalne ramki są określone względem środka masy każdego ciała, pozostają stałe przez całą symulację i są transformowane do przestrzeni świata w każdym kroku używając obecnej globalnej pozycji (X) i rotacji (Q) ciała.
 
@@ -279,7 +279,7 @@ Ta sekcja szczegółowo opisuje popularne typy przegubów mechanicznych, ich ogr
 
 **Co robi**: Pozwala na rotację **tylko wokół jednej osi** (jak zawias drzwi). Dwa ciała dzielą wspólną oś rotacji, ale mogą obracać się niezależnie wokół niej.
 
-![hinge joint](hinge-joint.png)
+![hinge joint](blob/hinge-joint.png)
 
 **Ograniczenia**: **Pozycja** - 1 ograniczenie (zbieżność punktów, odległość = 0). **Orientacja** - Wyrównanie osi (osie zawiasu muszą być wyrównane), opcjonalny kąt docelowy, opcjonalne limity swing [swing_min, swing_max].
 
@@ -291,7 +291,7 @@ Ta sekcja szczegółowo opisuje popularne typy przegubów mechanicznych, ich ogr
 
 **Co robi**: Utrzymuje dwa **punkty przyłączenia zbieżne**, ale pozwala na **pełną rotację 3D** (przegub kulowy). Opcjonalnie ogranicza zakres ruchu.
 
-![ball joint](ball-joint.png)
+![ball joint](blob/ball-joint.png)
 
 **Ograniczenia**: **Pozycja** - 1 ograniczenie (zbieżność punktów, odległość = 0). **Orientacja** - Opcjonalny limit swing (stożek dozwolonych kierunków, obliczony z kąta między osiami X) i limit twist [twist_min, twist_max] (obliczony z osi wtórnych rzutowanych na płaszczyznę).
 
@@ -303,7 +303,7 @@ Ta sekcja szczegółowo opisuje popularne typy przegubów mechanicznych, ich ogr
 
 **Co robi**: Pozwala na **translację tylko wzdłuż jednej osi** (ruch przesuwowy). Rotacja wokół tej osi (twist) może być swobodna lub ograniczona; brak swing (osie pozostają wyrównane).
 
-![prismatic joint](prismatic-joint.png)
+![prismatic joint](blob/prismatic-joint.png)
 
 **Ograniczenia**: **Pozycja** - 1 ograniczenie (odległość wzdłuż osi X ograniczona do [distance_min, distance_max], solver rzutuje separację na oś i stosuje korektę). **Orientacja** - Swing: osie X wyrównane; Twist: opcjonalne limity [twist_min, twist_max].
 
@@ -313,7 +313,7 @@ Ta sekcja szczegółowo opisuje popularne typy przegubów mechanicznych, ich ogr
 
 ## Szczegóły implementacji
 
-![simulation in python](simulation-python.png)
+![simulation in python](blob/simulation-python.png)
 
 Ta sekcja opisuje zaimplementowaną symulację fizyczną 3D ciał sztywnych zbudowaną w Pythonie, Pygame i OpenGL, która implementuje rozwiązywanie ograniczeń w stylu XPBD dla przegubów.
 
