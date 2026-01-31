@@ -1,4 +1,4 @@
-# Physics Project — 3D Rigid Body & Joint Simulation
+# 3D Rigid Body & Joint Simulation
 
 A real-time 3D physics simulation with rigid bodies and multiple joint types. Built with Python, Pygame, and OpenGL. Supports scene loading from JSON and mouse-drag interaction.
 
