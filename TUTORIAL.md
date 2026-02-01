@@ -72,7 +72,7 @@ Symulacja fizyczna wysokiej wierności oblicza siły i używa drugiej zasady dyn
 
 [XPBD by Mathias Muller](https://www.youtube.com/watch?v=jrociOAYqxA)
 
-**Extended Position-Based Dynamics (XPBD)**[^2] rozszerza PBD o **compliance ($\alpha$)**, aby osiągnąć niezależne od kroku czasowego, fizycznie dokładne rozwiązywanie ograniczeń—niezbędne dla symulacji przegubów[^3].
+**Extended Position-Based Dynamics (XPBD)**[^2] rozszerza PBD o **compliance ($\alpha$)**, aby osiągnąć niezależne od kroku czasowego, fizycznie dokładne rozwiązywanie ograniczeń, co jest niezbędne dla symulacji przegubów[^3].
 
 **Problem z regularnym PBD**: Chociaż PBD jest stabilne, ma krytyczną wadę: sztywność ograniczeń zależy od kroku czasowego i liczby iteracji solvera. Oznacza to:
 - Jeśli zmienisz częstotliwość klatek (np. z 60 FPS na 120 FPS), przeguby będą wydawać się [sztywniejsze](https://www.youtube.com/watch?v=-3X6zDaJ8r4) lub bardziej miękkie
@@ -181,7 +181,7 @@ Pojedynczy punkt daje nam tylko pozycję. Ramka współrzędnych (z pozycją + t
 
 **Konfiguracja spoczynkowa**: Podczas konfigurowania przegubu definiujesz punkt przyłączenia ($P_{rest}$) i zestaw prostopadłych osi ($A_{rest}$ i $B_{rest}$) dla obu ciał, gdy są w stanie "spoczynkowym" lub neutralnym.
 
-**Dlaczego definiować konfigurację spoczynkową?** Konfiguracja spoczynkowa definiuje "neutralny" stan przegubu—jak ciała są zorientowane względem siebie, gdy przegub jest w swojej domyślnej pozycji. To definiuje, co oznacza "kąt zero" dla przegubów rotacyjnych, ustala ramkę odniesienia do pomiaru kątów i odległości oraz zapewnia, że przegub zaczyna w prawidłowym stanie.
+**Dlaczego definiować konfigurację spoczynkową?** Konfiguracja spoczynkowa definiuje "neutralny" stan przegubu: jak ciała są zorientowane względem siebie, gdy przegub jest w swojej domyślnej pozycji. To definiuje, co oznacza "kąt zero" dla przegubów rotacyjnych, ustala ramkę odniesienia do pomiaru kątów i odległości oraz zapewnia, że przegub zaczyna w prawidłowym stanie.
 
 **Równanie przegubu**: Celem solvera jest zapewnienie[^3]:
 
@@ -221,7 +221,7 @@ $$x_{new} = x + \Delta t \cdot v$$
 #### Faza 2: Rozwiązywanie
 Iteracyjnie manipuluj pozycjami i orientacjami, aby spełnić wszystkie ograniczenia przegubów. To używa podejścia **Non-linear Gauss-Seidel**[^1]: każdy przegub jest rozwiązywany jeden po drugim z natychmiastowo aktualizowanymi pozycjami, a wiele iteracji może być potrzebnych dla zbieżności.
 
-**Czym jest Gauss-Seidel?** Gauss-Seidel to metoda iteracyjna, w której rozwiązujesz ograniczenia jedno po drugim, natychmiast aktualizując stan po każdym ograniczeniu. To jest w przeciwieństwie do metod, które rozwiązują wszystkie ograniczenia jednocześnie. Zaletą jest prostota i efektywność—możesz rozwiązać każde ograniczenie niezależnie.
+**Czym jest Gauss-Seidel?** Gauss-Seidel to metoda iteracyjna, w której rozwiązujesz ograniczenia jedno po drugim, natychmiast aktualizując stan po każdym ograniczeniu. To jest w przeciwieństwie do metod, które rozwiązują wszystkie ograniczenia jednocześnie. Zaletą jest prostota i efektywność: możesz rozwiązać każde ograniczenie niezależnie.
 
 **Co oznacza "zbieżność"?** Zbieżność oznacza, że solver znalazł rozwiązanie, w którym wszystkie ograniczenia są spełnione (lub bardzo blisko spełnione). Czasami jedna iteracja nie wystarczy, szczególnie gdy ograniczenia oddziałują ze sobą. Solver kontynuuje iterowanie, aż ograniczenia są spełnione lub osiągnięta zostanie maksymalna liczba iteracji.
 
