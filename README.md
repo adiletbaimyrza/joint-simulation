@@ -52,7 +52,7 @@ physics-project/
 ├── requirements.txt
 ├── README.md
 ├── DOCUMENTATION.md        # Full technical documentation
-└── physics_sim/
+└── src/
     ├── __init__.py         # Package exports
     ├── config.py           # FPS, window size
     ├── math_utils.py       # Vector3, Quaternion
